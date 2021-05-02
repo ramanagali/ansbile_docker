@@ -1,4 +1,4 @@
-# ansbile raw
+# Ansbile raw
 
 ansible all -m ping
 
@@ -6,7 +6,7 @@ ansible -i hosts mac --list-hosts
 ansible -i hosts all -m raw -a 'echo "Hello GVR"'
 ansible -i hosts mac -m ping
 
-# run playbooks
+# Run playbooks
 
 ansible-playbook playbook1-ping.yml --check --ask-pass
 
@@ -22,11 +22,11 @@ cd roles
 ansible-galaxy init role1
 ansible-galaxy init role2
 
-# call main playbook using role
+# Call main playbook using roles
 
 ansible-playbook main.yaml --check
 
-# call playbook
+# Call playbooks directly
 
 ansible-playbook ./playbooks/playbook1-ping.yml --check
 ansible-playbook ./playbooks/playbook2-ghost.yml --check
