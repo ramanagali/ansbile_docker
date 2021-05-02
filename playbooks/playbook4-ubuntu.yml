@@ -3,7 +3,7 @@
   hosts: mac
   # become: true
   # gather_facts: no
-  
+
   tasks:
     - name: Kernel
       debug: msg="{{ ansible_kernel }}"
@@ -12,12 +12,12 @@
       debug: msg="Target Host is  {{ ansible_hostname }}"
 
     - name: Pull ubuntu image
-      community.general.docker_image:
+      community.docker.docker_image:
         name: ubuntu
         source: pull
-    
+
     - name: Create a ubuntu container1
-      community.general.docker_container:
+      community.docker.docker_container:
         name: ubuntu1
         image: ubuntu
         volumes:
@@ -26,7 +26,7 @@
         command: ["sleep", "infinity"]
 
     - name: Create a ubuntu container2
-      community.general.docker_container:
+      community.docker.docker_container:
         name: ubuntu2
         image: ubuntu
         volumes:
@@ -34,8 +34,8 @@
         state: started
         command: ["sleep", "infinity"]
 
-    - name: Create ubuntu network & connect 
-      community.general.docker_network:
+    - name: Create ubuntu network & connect
+      community.docker.docker_network:
         name: ubnet
         connected:
           - ubuntu1
