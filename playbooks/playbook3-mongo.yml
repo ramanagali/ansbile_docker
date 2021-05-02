@@ -29,12 +29,14 @@
         source: pull
     #3.
     - name: Create a mongo container
-      community.general.docker_container:
+      community.docker.docker_container:
         name: mongodb
         image: mongo
         volumes:
           - /mdata
         state: started
+        detach: true
+        tty: true
         ports:
           - "27017:27017"
         env:
@@ -42,12 +44,14 @@
           MONGO_INITDB_ROOT_PASSWORD: "password"
     #4.
     - name: Create a mongo-express container
-      community.general.docker_container:
+      community.docker.docker_container:
         name: mymongoex
         image: mongo-express
         volumes:
           - /mxdata
         state: started
+        detach: true
+        tty: true
         ports:
           - "8080:8081"
         env:
