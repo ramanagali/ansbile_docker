@@ -1,0 +1,7 @@
+---
+- name: run ping task on mymac
+  hosts: mac
+  #become: yes
+  roles:
+    - role1
+    - role2

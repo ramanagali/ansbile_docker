@@ -1,0 +1,23 @@
+---
+- name: run task on all hosts
+  hosts: mac
+  # become: true
+
+  vars:
+    var1: foo
+    var2: bar
+
+  tasks:
+    - name: Kernel
+      debug: msg="{{ ansible_kernel }}"
+
+    - name: Hostname
+      debug: msg="This is {{ ansible_hostname }}"
+
+    - name: Distribution
+      debug: msg="{{ ansible_distribution }}"
+
+    - debug: var=ansible_architecture
+    - debug: var=inventory_hostname
+    - debug: var=var1
+    - debug: var=var2

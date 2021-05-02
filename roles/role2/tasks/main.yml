@@ -1,0 +1,13 @@
+---
+# tasks file for role2
+- name: Creating an Empty text file
+  file:
+    path: "~/Downloads/empty_file.txt"
+    state: touch
+- name: Ansible create file with content example
+  copy:
+    dest: "~/Downloads/test_file.txt"
+    content: |
+      created 
+      using
+      ansible

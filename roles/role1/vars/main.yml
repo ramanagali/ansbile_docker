@@ -1,0 +1,4 @@
+---
+# vars file for role1
+http_port: 80
+https_port: 443

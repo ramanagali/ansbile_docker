@@ -1,0 +1,42 @@
+---
+- name: Pull Ubuntu image & Create ghost container
+  hosts: mac
+  # become: true
+  # gather_facts: no
+  
+  tasks:
+    - name: Kernel
+      debug: msg="{{ ansible_kernel }}"
+
+    - name: Hostname
+      debug: msg="Target Host is  {{ ansible_hostname }}"
+
+    - name: Pull ubuntu image
+      community.general.docker_image:
+        name: ubuntu
+        source: pull
+    
+    - name: Create a ubuntu container1
+      community.general.docker_container:
+        name: ubuntu1
+        image: ubuntu
+        volumes:
+          - /udata1
+        state: started
+        command: ["sleep", "infinity"]
+
+    - name: Create a ubuntu container2
+      community.general.docker_container:
+        name: ubuntu2
+        image: ubuntu
+        volumes:
+          - /udata2
+        state: started
+        command: ["sleep", "infinity"]
+
+    - name: Create ubuntu network & connect 
+      community.general.docker_network:
+        name: ubnet
+        connected:
+          - ubuntu1
+          - ubuntu2

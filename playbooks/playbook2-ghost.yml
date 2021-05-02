@@ -1,0 +1,33 @@
+---
+- name: Pull ghost image & Create ghost container
+  hosts: mac
+  # become: true
+
+  vars:
+    var1: foo
+    var2: bar
+
+  tasks:
+    - name: Kernel
+      debug: msg="{{ ansible_kernel }}"
+
+    - name: Hostname
+      debug: msg="Target Host is  {{ ansible_hostname }}"
+
+    - name: Pull ghost image
+      community.general.docker_image:
+        name: ghost
+        source: pull
+
+    - name: Create a ghost container
+      community.general.docker_container:
+        name: myghost
+        image: ghost
+        volumes:
+          - /gdata
+        state: started
+        ports:
+          - "3001:2368"
+        env:
+          SECRET_KEY: "ssssh"
+          BOOLEAN_KEY: "yes"

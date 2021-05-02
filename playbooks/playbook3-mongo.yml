@@ -1,0 +1,63 @@
+---
+- name: Pull ghost image * Create ghost container
+  hosts: mac
+  # become: true
+
+  vars:
+    var1: foo
+    var2: bar
+
+  tasks:
+    - name: Kernel
+      debug: msg="{{ ansible_kernel }}"
+
+    - name: Hostname
+      debug: msg="Target Host is  {{ ansible_hostname }}"
+
+    - debug: var=var1
+    - debug: var=var2
+
+    #1.
+    - name: Pull mongo image
+      community.general.docker_image:
+        name: mongo
+        source: pull
+    #2.
+    - name: Pull mongo-express image
+      community.general.docker_image:
+        name: mongo-express
+        source: pull
+    #3.
+    - name: Create a mongo container
+      community.general.docker_container:
+        name: mongodb
+        image: mongo
+        volumes:
+          - /mdata
+        state: started
+        ports:
+          - "27017:27017"
+        env:
+          MONGO_INITDB_ROOT_USERNAME: "admin"
+          MONGO_INITDB_ROOT_PASSWORD: "password"
+    #4.
+    - name: Create a mongo-express container
+      community.general.docker_container:
+        name: mymongoex
+        image: mongo-express
+        volumes:
+          - /mxdata
+        state: started
+        ports:
+          - "8080:8081"
+        env:
+          ME_CONFIG_MONGODB_ADMINUSERNAME: "admin"
+          ME_CONFIG_MONGODB_ADMINPASSWORD: "password"
+          ME_CONFIG_MONGODB_SERVER: "mongodb"
+    #5.
+    - name: Create mongoNet network & connect to
+      community.general.docker_network:
+        name: mongoNet
+        connected:
+          - mongodb
+          - mymongoex

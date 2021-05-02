@@ -1,0 +1,23 @@
+---
+# tasks file for role1
+- name: run task on all hosts
+  debug: msg="run task on all hosts"
+
+- name: Kernel
+  debug:
+    msg: "{{ ansible_kernel }}"
+
+- name: Hostname
+  debug:
+    msg: "This is {{ ansible_hostname }}"
+
+- name: Distribution
+  debug:
+    msg: "{{ ansible_distribution }}"
+
+- debug: var=ansible_architecture
+- debug: var=inventory_hostname
+
+# call the variables
+- debug: var=http_port
+- debug: var=https_port
