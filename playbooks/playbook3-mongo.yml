@@ -19,12 +19,12 @@
 
     #1.
     - name: Pull mongo image
-      community.general.docker_image:
+      community.docker.docker_image:
         name: mongo
         source: pull
     #2.
     - name: Pull mongo-express image
-      community.general.docker_image:
+      community.docker.docker_image:
         name: mongo-express
         source: pull
     #3.
@@ -60,7 +60,7 @@
           ME_CONFIG_MONGODB_SERVER: "mongodb"
     #5.
     - name: Create mongoNet network & connect to
-      community.general.docker_network:
+      community.docker.docker_network:
         name: mongoNet
         connected:
           - mongodb
