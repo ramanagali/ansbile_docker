@@ -15,12 +15,12 @@
       debug: msg="Target Host is  {{ ansible_hostname }}"
 
     - name: Pull ghost image
-      community.general.docker_image:
+      community.docker.docker_image:
         name: ghost
         source: pull
 
     - name: Create a ghost container
-      community.general.docker_container:
+      community.docker.docker_container:
         name: myghost
         image: ghost
         volumes:
